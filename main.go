@@ -64,7 +64,9 @@ func main() {
 	log.Println("    PORT=8080 ./forever-coolshell ")
 
 	port := "8080"
+	host := "127.0.0.1"
 	portEnv := os.Getenv("PORT")
+	hostEnv := os.Getenv("HOST")
 	p, err := strconv.ParseInt(portEnv, 10, 64)
 	if err != nil {
 		log.Println("使用默认端口", port)
@@ -72,8 +74,14 @@ func main() {
 		port = fmt.Sprintf("%d", p)
 		log.Println("使用指定端口", port)
 	}
+	if hostEnv != "" {
+		host = hostEnv
+		log.Println("使用指定地址", host)
+	} else {
+		log.Println("使用默认地址", host)
+	}
 
-	if err := r.Run(":" + port); err != nil {
+	if err := r.Run(host + ":" + port); err != nil {
 		log.Fatal(err)
 	}
 }
