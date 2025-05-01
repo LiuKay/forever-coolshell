@@ -22,7 +22,7 @@ jobs:
           CGO_ENABLED=0 GOOS=linux go build -o coolshell
           
       - name: Build Docker image
-        run: docker build -t forever-coolshell:latest .
+        run: docker build -t forever-coolshell:latest -f docker/Dockerfile.gorelease .
         
       - name: Export Docker image
         run: docker save forever-coolshell:latest > forever-coolshell.tar
